@@ -1,26 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ---------- beTalky editorial palette ----------
+     Ivory paper, warm ink, hairline neutrals. The Tailwind scales below are
+     re-tuned so every existing utility (slate-*, blue-*, emerald-* …) renders
+     in the same premium language as the landing page. */
+  --color-brand-blue: #0066FF;      /* the single electric accent — use sparingly */
+  --color-brand-hover: #0052CC;
+  --color-brand-subtle: #F5F3EE;
+  --color-brand-dark: #0E0D0B;
+  --color-brand-lightBlue: #F3F0EA;
+
+  --color-paper: #FDFCF9;
+  --color-paper-raised: #FAF8F4;
+  --color-paper-deep: #F3F0EA;
+  --color-ink: #0E0D0B;
+  --color-ink-muted: #6E6A61;
+  --color-hairline: #E7E3DB;
+
+  --color-surface-page: #FDFCF9;
+  --color-surface-card: #FFFFFF;
+  --color-border-subtle: #EFECE6;
+  --color-border-default: #E7E3DB;
+
+  /* Neutrals → warm stone */
+  --color-slate-50: #FBFAF7;
+  --color-slate-100: #F5F3EE;
+  --color-slate-200: #E9E5DE;
+  --color-slate-300: #CDC7BB;
+  --color-slate-400: #A19B8F;
+  --color-slate-500: #77726A;
+  --color-slate-600: #5C5850;
+  --color-slate-700: #403D37;
+  --color-slate-800: #2A2824;
+  --color-slate-900: #1A1916;
+  --color-slate-950: #0E0D0B;
+
+  --color-gray-50: #FBFAF7;
+  --color-gray-100: #F5F3EE;
+  --color-gray-200: #E9E5DE;
+  --color-gray-300: #CDC7BB;
+  --color-gray-400: #A19B8F;
+  --color-gray-500: #77726A;
+  --color-gray-600: #5C5850;
+  --color-gray-700: #403D37;
+  --color-gray-800: #2A2824;
+  --color-gray-900: #1A1916;
+
+  /* Primary (was electric blue) → ink. Light steps become warm tints. */
+  --color-blue-50: #F6F4EF;
+  --color-blue-100: #EEEBE4;
+  --color-blue-200: #D9D4C9;
+  --color-blue-300: #B9B3A7;
+  --color-blue-400: #8E887D;
+  --color-blue-500: #3A3833;
+  --color-blue-600: #1A1916;
+  --color-blue-700: #0E0D0B;
+  --color-blue-800: #0A0908;
+  --color-blue-900: #070706;
+  --color-blue-950: #040403;
+
+  --color-indigo-50: #F6F4EF;
+  --color-indigo-100: #EAE6DD;
+  --color-indigo-200: #D9D4C9;
+  --color-indigo-300: #B9B3A7;
+  --color-indigo-400: #8E887D;
+  --color-indigo-500: #3A3833;
+  --color-indigo-600: #1A1916;
+  --color-indigo-700: #0E0D0B;
+  --color-indigo-800: #0A0908;
+  --color-indigo-900: #070706;
+  --color-indigo-950: #040403;
+
+  /* Success → forest */
+  --color-emerald-50: #EEF3EE;
+  --color-emerald-100: #DCE7DD;
+  --color-emerald-200: #BCD2BF;
+  --color-emerald-300: #93B69A;
+  --color-emerald-400: #5F9069;
+  --color-emerald-500: #3D7049;
+  --color-emerald-600: #2E5B3A;
+  --color-emerald-700: #25492F;
+  --color-emerald-800: #1D3925;
+  --color-emerald-900: #152A1C;
+  --color-emerald-950: #0C1810;
+
+  /* Error → oxblood */
+  --color-rose-50: #F8EEEC;
+  --color-rose-100: #F1DCD8;
+  --color-rose-200: #E4B9B2;
+  --color-rose-300: #D18F86;
+  --color-rose-400: #B9625A;
+  --color-rose-500: #9E4139;
+  --color-rose-600: #86322B;
+  --color-rose-700: #6E2823;
+  --color-rose-800: #57201C;
+  --color-rose-900: #401815;
+  --color-rose-950: #260E0C;
+  --color-red-50: #F8EEEC;
+  --color-red-100: #F1DCD8;
+  --color-red-500: #9E4139;
+  --color-red-600: #86322B;
+  --color-red-700: #6E2823;
+
+  /* Warning → ochre */
+  --color-amber-50: #F8F2E4;
+  --color-amber-100: #F0E4C6;
+  --color-amber-200: #E3CD95;
+  --color-amber-300: #D2B166;
+  --color-amber-400: #BE9442;
+  --color-amber-500: #A27A2C;
+  --color-amber-600: #866223;
+  --color-amber-700: #6A4C1C;
+  --color-amber-800: #503A16;
+  --color-amber-900: #3A2A10;
+  --color-amber-950: #221809;
+  --color-orange-500: #A26A2C;
+  --color-orange-600: #865523;
+
+  --color-purple-50: #F3F0E9;
+  --color-purple-100: #EAE6DD;
+  --color-purple-400: #8E887D;
+  --color-purple-500: #3A3833;
+  --color-purple-600: #1A1916;
+  --color-purple-700: #0E0D0B;
+
+  /* Typography */
+  --font-sans: var(--nf-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--nf-display), var(--nf-anek), 'Inter', sans-serif;
+  --font-serif: var(--nf-serif), 'Times New Roman', Times, serif;
+  --font-anek: var(--nf-display), var(--nf-anek), 'Anek Bangla', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hind-siliguri: 'Hind Siliguri', var(--nf-anek), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-script: var(--nf-serif), 'Times New Roman', serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #FDFCF9;
+    color: #1A1916;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes soundbar {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.wave-bar {
+  animation: soundbar 1.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ---------- Type families ---------- */
+/* Bold display (Inter Tight) with Bengali fallback to Anek Bangla */
+.font-anek,
+.font-display {
+  font-family: var(--nf-display), var(--nf-anek), 'Inter', sans-serif;
+}
+.font-anek {
+  letter-spacing: -0.02em;
+}
+
+.font-hind-siliguri {
+  font-family: 'Hind Siliguri', var(--nf-anek), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Condensed serif italic (Instrument Serif) — the editorial accent voice.
+   .font-script used to be a handwriting face; it now speaks in the serif. */
+.font-serif-display,
+.font-script {
+  font-family: var(--nf-serif), 'Times New Roman', Times, serif;
+}
+.font-script {
+  font-style: italic;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Small editorial label: "INTERMEDIATE · TODAY'S TOPIC" */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #6E6A61;
+}
+
+@keyframes report-scroll {
+  0%, 8% { transform: translateY(0); }
+  92%, 100% { transform: translateY(var(--scroll-to, -70%)); }
+}
+.report-scroll {
+  animation: report-scroll 22s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-scroll, .marquee-track { animation: none; }
+}
+
+/* Mobile tab bar spacing (toggled by Navbar) */
+@media (max-width: 639px) {
+  body.has-bottom-nav {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
 }

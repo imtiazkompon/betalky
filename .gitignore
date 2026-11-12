@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# keep the safe template
+!.env.example
+
+# local tooling / machine-specific
+.claude/
+*.log
+Thumbs.db
+
+# old, unused screenshots (one shows a personal email) — kept locally, not published
+/public/screenshots/
