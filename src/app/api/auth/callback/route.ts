@@ -5,7 +5,8 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
   // Only allow same-site relative destinations (blocks ?next=//evil.com or ?next=@evil.com).
-  const rawNext = searchParams.get('next') || '/dashboard';
+  const cookieNext = request.cookies.get('betalky_next')?.value;
+  const rawNext = searchParams.get('next') || (cookieNext ? decodeURIComponent(cookieNext) : '/dashboard');
   const next = /^\/(?![/\\])/.test(rawNext) ? rawNext : '/dashboard';
   const error = searchParams.get('error');
   const errorDescription = searchParams.get('error_description');

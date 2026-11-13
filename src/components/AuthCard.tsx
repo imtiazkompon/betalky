@@ -59,8 +59,14 @@ export default function AuthCard({ initialMode = 'signup' }: AuthCardProps) {
     window.history.replaceState(null, '', (newMode === 'signin' ? '/login' : '/signup') + qs);
   };
 
-  const callbackUrl = () =>
-    `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextPath)}`;
+  // The callback URL is kept *exactly* `<origin>/api/auth/callback` (no query string) so it matches the
+  // entry in Supabase's Redirect URLs list. The post-login destination travels in a short-lived cookie.
+  const callbackUrl = () => {
+    document.cookie = `betalky_next=${encodeURIComponent(nextPath)}; path=/; max-age=600; SameSite=Lax${
+      window.location.protocol === 'https:' ? '; Secure' : ''
+    }`;
+    return `${window.location.origin}/api/auth/callback`;
+  };
 
   // Google OAuth
   const handleGoogleAuth = async () => {
